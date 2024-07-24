@@ -16,6 +16,7 @@ function GlobalSearch() {
           type="text"
           placeholder="Search Globally"
           value={""}
+          readOnly
           className="paragraph-regular no-focus placeholder background-light800_darkgradient border-none shadow-none outline-none"
         />
       </div>

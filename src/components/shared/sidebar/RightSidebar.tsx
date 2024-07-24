@@ -85,7 +85,7 @@ function RightSidebar() {
           {popularTags.map((tag) => (
             <RenderTags
               key={tag._id}
-              _id={tag._id}
+              _id={tag._id.toString()}
               name={tag.name}
               totalQuestions={tag.totalQuestions}
               showCount
