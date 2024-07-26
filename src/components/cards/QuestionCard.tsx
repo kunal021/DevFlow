@@ -1,5 +1,7 @@
 import Link from "next/link";
 import RenderTags from "../shared/RenderTags";
+import Metric from "../shared/Metric";
+import { formatNumber, getTimeStamp } from "@/lib/utils";
 
 interface QuestionCardProps {
   _id: string;
@@ -12,7 +14,7 @@ interface QuestionCardProps {
   upvotes: number;
   views: number;
   answers: Array<Object>;
-  createdAt: string;
+  createdAt: Date;
 }
 
 function QuestionCard({
@@ -30,7 +32,7 @@ function QuestionCard({
       <div className="flex flex-col-reverse items-start justify-between gap-5 sm:flex-row">
         <div>
           <span className="subtle-regular text-dark400_light700 line-clamp-1 flex sm:hidden">
-            {createdAt}
+            {getTimeStamp(createdAt)}
           </span>
           <Link href={`/questions/${_id}`}>
             <h3 className="sm:h3-semibold base-semibold text-dark200_light900 line-clamp-1 flex-1">
@@ -43,6 +45,38 @@ function QuestionCard({
         {tags.map((tag) => (
           <RenderTags key={tag._id} _id={tag._id} name={tag.name} />
         ))}
+      </div>
+      <div className="flex-between mt-6 w-full flex-wrap gap-3">
+        <Metric
+          imgUrl={"/assets/icons/avatar.svg"}
+          alt={"user"}
+          value={author.name}
+          title={` - asked ${getTimeStamp(createdAt)}`}
+          href={`/profile/${author._id}`}
+          isAuthor
+          textStyles="body-medium text-dark400_light700"
+        />
+        <Metric
+          imgUrl={"/assets/icons/like.svg"}
+          alt={"upvotes"}
+          value={formatNumber(upvotes)}
+          title=" Votes"
+          textStyles="small-medium text-dark400_light800"
+        />
+        <Metric
+          imgUrl={"/assets/icons/message.svg"}
+          alt={"messages"}
+          value={formatNumber(answers.length)}
+          title=" Answers"
+          textStyles="small-medium text-dark400_light800"
+        />
+        <Metric
+          imgUrl={"/assets/icons/eye.svg"}
+          alt={"eyes"}
+          value={formatNumber(views)}
+          title=" Views"
+          textStyles="small-medium text-dark400_light800"
+        />
       </div>
     </div>
   );

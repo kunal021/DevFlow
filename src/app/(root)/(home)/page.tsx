@@ -17,9 +17,9 @@ const questions = [
     ],
     author: { _id: "1", name: "John Doe", picture: "author1.png" },
     upvotes: 10,
-    views: 100,
+    views: 1000000,
     answers: [{}],
-    createdAt: "2024-07-10T12:00:00.000Z",
+    createdAt: new Date("2024-07-10T12:00:00.000Z"),
   },
   {
     _id: "2",
@@ -32,7 +32,7 @@ const questions = [
     upvotes: 10,
     views: 100,
     answers: [{}],
-    createdAt: "2024-07-10T12:00:00.000Z",
+    createdAt: new Date("2024-07-10T12:00:00.000Z"),
   },
 ];
 function Home() {
@@ -40,10 +40,7 @@ function Home() {
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
         <h1 className="h1-bold text-dark100_light900">Questions</h1>
-        <Link
-          href={"/ask-questions"}
-          className="flex justify-end max-sm:w-full"
-        >
+        <Link href={"/ask-question"} className="flex justify-end max-sm:w-full">
           <Button className="primary-gradient min-h-[46px] px-4 py-3 !test-light-900">
             Ask a Question
           </Button>
