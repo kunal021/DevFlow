@@ -6,6 +6,8 @@ const publicRoutes = [
   "/sign-in(.*)", // Make the sign-in route a catch-all
   "/sign-up(.*)",
   "/api/webhooks",
+  "/community",
+  "/tags",
 ];
 
 export default clerkMiddleware((auth, req) => {
