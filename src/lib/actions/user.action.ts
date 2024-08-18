@@ -13,7 +13,7 @@ import Question from "@/database/question.model";
 
 export async function getUserById(params: any) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { userId } = params;
     const user = await User.findOne({
       clerkId: userId,
@@ -26,7 +26,7 @@ export async function getUserById(params: any) {
 }
 export async function createUser(userData: CreateUserParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const newUser = await User.create(userData);
     return newUser;
   } catch (error) {
@@ -36,7 +36,7 @@ export async function createUser(userData: CreateUserParams) {
 
 export async function updateUser(userData: UpdateUserParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { clerkId, updateData, path } = userData;
     await User.findOneAndUpdate({ clerkId }, updateData, { new: true });
     revalidatePath(path);
@@ -47,7 +47,7 @@ export async function updateUser(userData: UpdateUserParams) {
 
 export async function deleteUser(userData: DeleteUserParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { clerkId } = userData;
     const user = await User.findOneAndDelete({ clerkId });
 
@@ -70,7 +70,7 @@ export async function deleteUser(userData: DeleteUserParams) {
 
 export async function getAllUsers(params: GetAllUsersParams) {
   try {
-    connectToDatabase();
+    await connectToDatabase();
     const { page = 1, pageSize = 20, filter, searchQuery } = params;
 
     const users = await User.find({}).sort({ createdAt: -1 });
