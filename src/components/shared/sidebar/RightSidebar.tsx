@@ -55,7 +55,7 @@ function RightSidebar() {
     },
   ];
   return (
-    <section className="background-light900_dark200 flex flex-col gap-24 light-border sticky top-0 right-0 h-screen overflow-y-auto border-l p-6 pt-36 shadow-light-300 dark:shadow-none max-xl:hidden lg:w-[350px] custom-scrollbar">
+    <section className="background-light900_dark200 flex flex-col gap-16 light-border sticky top-0 right-0 h-screen overflow-y-auto border-l p-4 pt-24 shadow-light-300 dark:shadow-none max-xl:hidden lg:w-[300px] custom-scrollbar">
       <div>
         <h3 className="h3-bold text-dark200_light900">Top Questions</h3>
         <div className="mt-7 flex flex-col w-full gap-[30px]">

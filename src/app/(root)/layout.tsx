@@ -9,7 +9,7 @@ function Layout({ children }: { children: ReactNode }) {
       <Navbar />
       <div className="flex">
         <LeftSidebar />
-        <section className="flex flex-1 flex-col min-h-screen px-6 pb-6 pt-36 max-md:pb-14 sm:px-14">
+        <section className="flex flex-1 flex-col min-h-screen px-4 pb-6 pt-24 max-md:pb-14 sm:px-6">
           <div className="w-full mx-auto max-w-5xl">{children}</div>
         </section>
         <RightSidebar />

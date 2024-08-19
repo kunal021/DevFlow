@@ -10,8 +10,8 @@ import { usePathname } from "next/navigation";
 function LeftSidebar() {
   const pathname = usePathname();
   return (
-    <section className="background-light900_dark200 flex flex-col justify-between gap-36 light-border sticky top-0 left-0 h-screen overflow-y-auto border-r p-6 pt-36 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px] custom-scrollbar">
-      <div className="flex flex-col flex-1 h-full gap-6">
+    <section className="background-light900_dark200 flex flex-col justify-between gap-10 light-border sticky top-0 left-0 h-screen overflow-y-auto border-r p-4 pt-24 shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[235px] custom-scrollbar">
+      <div className="flex flex-col flex-1 h-full gap-2">
         {sidebarLinks.map((item) => {
           const isActive =
             (pathname.includes(item.route) && item.route.length > 1) ||
@@ -24,7 +24,7 @@ function LeftSidebar() {
                 isActive
                   ? "primary-gradient rounded-lg text-light-900"
                   : "text-dark300_light900"
-              } flex items-center justify-center lg:justify-start gap-4 bg-transparent p-3`}
+              } flex items-center justify-center lg:justify-start gap-2 bg-transparent p-3`}
             >
               <Image
                 src={item.imgURL}
@@ -35,7 +35,7 @@ function LeftSidebar() {
               />
               <p
                 className={`${
-                  isActive ? "base-bold" : "base-medium"
+                  isActive ? "base-bold text-base" : "base-medium text-base"
                 } max-lg:hidden`}
               >
                 {item.label}

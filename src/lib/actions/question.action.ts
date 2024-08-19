@@ -1,6 +1,7 @@
 "use server";
 
 import Tag from "@/database/tag.model";
+import User from "@/database/user.model";
 import Question from "@/database/question.model";
 import { connectToDatabase } from "../mongoose";
 import { CreateQuestionParams, GetQuestionsParams } from "./shared.type";
@@ -10,8 +11,8 @@ export async function getQuestions(params: GetQuestionsParams) {
   try {
     await connectToDatabase();
     const questions = await Question.find({})
-      .populate({ path: "tags", model: "Tag" })
-      .populate({ path: "author", model: "User" })
+      .populate({ path: "tags", model: Tag })
+      .populate({ path: "author", model: User })
       .sort({ createdAt: -1 });
     return { questions };
   } catch (error) {

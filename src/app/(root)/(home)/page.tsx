@@ -21,7 +21,7 @@ async function Home() {
           </Button>
         </Link>
       </div>
-      <div className="mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center">
+      <div className="mt-6 flex justify-between gap-3 max-sm:flex-col sm:items-center">
         <LocalSearch
           route={"/"}
           iconPosition="left"
@@ -36,7 +36,7 @@ async function Home() {
         />
       </div>
       <HomeFilter />
-      <div className="mt-10 flex w-full flex-col gap-6">
+      <div className="mt-6 flex w-full flex-col gap-6">
         {result && result.questions.length > 0 ? (
           result?.questions.map((items) => (
             <QuestionCard

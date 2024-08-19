@@ -16,7 +16,7 @@ import { usePathname } from "next/navigation";
 const NavContent = () => {
   const pathname = usePathname();
   return (
-    <section className="flex flex-col h-full gap-3 pt-10">
+    <section className="flex flex-col h-full gap-2 pt-8">
       {sidebarLinks.map((item) => {
         const isActive =
           (pathname.includes(item.route) && item.route.length > 1) ||
@@ -29,7 +29,7 @@ const NavContent = () => {
                 isActive
                   ? "primary-gradient rounded-lg text-light-900"
                   : "text-dark300_light900"
-              } flex items-center justify-start gap-4 bg-transparent p-3`}
+              } flex items-center justify-start gap-2 bg-transparent p-3`}
             >
               <Image
                 src={item.imgURL}
@@ -38,7 +38,11 @@ const NavContent = () => {
                 width={20}
                 className={`${isActive ? "" : "invert-colors"}`}
               />
-              <p className={`${isActive ? "base-bold" : "base-medium"}`}>
+              <p
+                className={`${
+                  isActive ? "base-bold text-base" : "base-medium text-base"
+                }`}
+              >
                 {item.label}
               </p>
             </Link>
