@@ -4,7 +4,11 @@ import Tag from "@/database/tag.model";
 import User from "@/database/user.model";
 import Question from "@/database/question.model";
 import { connectToDatabase } from "../mongoose";
-import { CreateQuestionParams, GetQuestionsParams } from "./shared.type";
+import {
+  CreateQuestionParams,
+  GetQuestionByIdParams,
+  GetQuestionsParams,
+} from "./shared.type";
 import { revalidatePath } from "next/cache";
 
 export async function getQuestions(params: GetQuestionsParams) {
@@ -51,5 +55,26 @@ export async function createQuestion(params: CreateQuestionParams) {
     // console.log("Question created successfully");
   } catch (error) {
     console.error("Error creating question:", error);
+  }
+}
+
+export async function getQuestionById(params: GetQuestionByIdParams) {
+  try {
+    await connectToDatabase();
+    const { questionId } = params;
+    const question = await Question.findById(questionId)
+      .populate({
+        path: "tags",
+        model: Tag,
+        select: "_id name",
+      })
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id clerkId name picture",
+      });
+    return question;
+  } catch (error) {
+    console.log("Error creating question:", error);
   }
 }
