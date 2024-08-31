@@ -1,14 +1,24 @@
+import AllAnswers from "@/components/shared/AllAnswers";
 import Answer from "@/components/shared/form/Answer";
 import Metric from "@/components/shared/Metric";
 import ParseHTML from "@/components/shared/ParseHTML";
 import RenderTags from "@/components/shared/RenderTags";
+import Votes from "@/components/shared/Votes";
 import { getQuestionById } from "@/lib/actions/question.action";
+import { getUserById } from "@/lib/actions/user.action";
 import { formatNumber, getTimeStamp } from "@/lib/utils";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import Link from "next/link";
 
 async function page({ params }: { params: { id: string } }) {
   const result = await getQuestionById({ questionId: params.id });
+  const { userId: clerkId } = auth();
+
+  let mongoUser;
+  if (clerkId) {
+    mongoUser = await getUserById({ userId: clerkId });
+  }
   return (
     <>
       <div className="flex-start w-full flex-col">
@@ -28,7 +38,9 @@ async function page({ params }: { params: { id: string } }) {
               {result?.author?.name}
             </p>
           </Link>
-          <div className="flex justify-end">VOTING</div>
+          <div className="flex justify-end">
+            <Votes />
+          </div>
         </div>
         <h2 className="h2-bold text-dark200_light900 mt-3.5 w-full text-left">
           {result?.title}
@@ -69,7 +81,18 @@ async function page({ params }: { params: { id: string } }) {
             />
           ))}
       </div>
-      <Answer />
+
+      <AllAnswers
+        questionId={result?._id.toString()}
+        userId={mongoUser?._id.toString()}
+        totalAnswers={result?.answers?.length}
+      />
+
+      <Answer
+        question={result?.content}
+        questionId={result?._id.toString()}
+        authorId={mongoUser?._id.toString()}
+      />
     </>
   );
 }

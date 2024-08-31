@@ -21,12 +21,14 @@ import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { createQuestion } from "@/lib/actions/question.action";
 import { usePathname, useRouter } from "next/navigation";
+import { useTheme } from "@/context/ThemeProvide";
 
 const type: any = "create";
 interface Props {
   mongoUserId: string;
 }
 function Question({ mongoUserId }: Props) {
+  const { mode } = useTheme();
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -135,6 +137,7 @@ function Question({ mongoUserId }: Props) {
               </FormLabel>
               <FormControl className="mt-3.5">
                 <Editor
+                  key={mode}
                   apiKey={process.env.TINYMCE_API_KEY}
                   onInit={(_evt, editor) => {
                     // @ts-ignore
@@ -168,6 +171,8 @@ function Question({ mongoUserId }: Props) {
                       "codesample | bold italic forecolor | alignleft aligncenter " +
                       "alignright alignjustify | bullist numlist | blocks ",
                     content_style: "body { font-family:Inter; font-size:16px }",
+                    skin: mode === "dark" ? "oxide-dark" : "oxide",
+                    content_css: mode === "dark" ? "dark" : "light",
                   }}
                 />
               </FormControl>
