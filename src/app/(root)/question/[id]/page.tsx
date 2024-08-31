@@ -83,15 +83,15 @@ async function page({ params }: { params: { id: string } }) {
       </div>
 
       <AllAnswers
-        questionId={result?._id.toString()}
-        userId={mongoUser?._id.toString()}
+        questionId={result?._id}
+        userId={mongoUser?._id}
         totalAnswers={result?.answers?.length}
       />
 
       <Answer
         question={result?.content}
-        questionId={result?._id.toString()}
-        authorId={mongoUser?._id.toString()}
+        questionId={JSON.stringify(result?._id)}
+        authorId={JSON.stringify(mongoUser?._id)}
       />
     </>
   );
