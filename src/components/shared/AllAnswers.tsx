@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getTimeStamp } from "@/lib/utils";
 import ParseHTML from "./ParseHTML";
+import Votes from "./Votes";
 
 interface Props {
   questionId: string;
@@ -21,7 +22,6 @@ async function AllAnswers({
   page,
   filter,
 }: Props) {
-  console.log(questionId);
   const result = await getAnswers({ questionId });
   return (
     <div className="mt-11">
@@ -32,9 +32,12 @@ async function AllAnswers({
       <div>
         {result?.answers &&
           result.answers.map((answer) => (
-            <div key={answer._id} className="light-border border-b py-10">
-              <div className="flex items-center justify-between">
-                <div className="mb-8 flex flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center sm:gap-2">
+            <div
+              key={answer._id}
+              className="light-border border-b py-10 w-full"
+            >
+              <div className="flex items-center justify-between w-full">
+                <div className="w-full mb-8 flex flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center sm:gap-2">
                   <Link
                     href={`/profile/${answer?.author?.clerkId}`}
                     className="flex flex-1 items-start gap-1 sm:items-center"
@@ -57,7 +60,17 @@ async function AllAnswers({
                       </p>
                     </div>
                   </Link>
-                  <div className="flex justify-end">VOTING</div>
+                  <div className="flex justify-end">
+                    <Votes
+                      type={"Answer"}
+                      itemId={JSON.stringify(answer?._id)}
+                      userId={JSON.stringify(userId)}
+                      upvotes={answer?.upvotes?.length}
+                      hasUpvoted={answer?.upvotes?.includes(userId)}
+                      downvotes={answer?.downvotes?.length}
+                      hasDownvoted={answer?.downvotes?.includes(userId)}
+                    />
+                  </div>
                 </div>
               </div>
               <ParseHTML data={answer?.content} />
