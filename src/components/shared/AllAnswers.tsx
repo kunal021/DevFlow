@@ -21,7 +21,7 @@ async function AllAnswers({
   totalAnswers,
   page,
   filter,
-}: Props) {
+}: Readonly<Props>) {
   const result = await getAnswers({ questionId });
   return (
     <div className="mt-11">
