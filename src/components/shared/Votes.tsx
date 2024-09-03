@@ -1,5 +1,6 @@
 "use client";
 import { downVoteAnswer, upVoteAnswer } from "@/lib/actions/answer.action";
+import { viewQuestion } from "@/lib/actions/interaction.action";
 import {
   downVoteQuestion,
   upVoteQuestion,
@@ -7,7 +8,8 @@ import {
 import { toggleSaveQuestions } from "@/lib/actions/user.action";
 import { formatNumber } from "@/lib/utils";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 interface Prpos {
   type: string;
@@ -29,8 +31,10 @@ function Votes({
   downvotes,
   hasDownvoted,
   hasSaved,
-}: Prpos) {
+}: Readonly<Prpos>) {
   const pathname = usePathname();
+  const router = useRouter();
+
   const handleSave = async () => {
     await toggleSaveQuestions({
       userId: JSON.parse(userId),
@@ -80,10 +84,15 @@ function Votes({
           path: pathname,
         });
       }
-
-      return;
     }
   };
+
+  useEffect(() => {
+    viewQuestion({
+      questionId: JSON.parse(itemId),
+      userId: userId ? JSON.parse(userId) : undefined,
+    });
+  }, [userId, itemId, pathname, router]);
   return (
     <div className="flex gap-5">
       <div className="flex-center gap-2.5">
