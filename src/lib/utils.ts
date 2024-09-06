@@ -38,3 +38,9 @@ export function formatNumber(num: number): string {
     return num.toString();
   }
 }
+
+export function getMonthYear(date: Date): string {
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+  return `${month} ${year}`;
+}

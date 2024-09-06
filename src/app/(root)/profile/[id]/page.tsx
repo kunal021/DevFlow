@@ -1,5 +1,9 @@
+import ProfileLink from "@/components/shared/ProfileLink";
+import Stats from "@/components/shared/Stats";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getUserInfo } from "@/lib/actions/user.action";
+import { getMonthYear } from "@/lib/utils";
 import { URLProps } from "@/types";
 import { SignedIn } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
@@ -21,13 +25,36 @@ async function Page({ params, searchParams }: URLProps) {
             className="rounded-full object-cover"
           />
           <div className="mt-3">
-            <h2>{userInfo?.user?.name}</h2>
-            <p>@{userInfo?.user?.username}</p>
+            <h2 className="h2-bold text-dark100_light900">
+              {userInfo?.user?.name}
+            </h2>
+            <p className="paragraph-regular text-dark200_light800">
+              @{userInfo?.user?.username}
+            </p>
             <div className="mt-5 flex flex-wrap items-center justify-start gap-5">
-              {userInfo?.user?.location && <p>{userInfo?.user?.location}</p>}
-              {userInfo?.user?.joinedAt.toString()}
+              {userInfo?.user?.portfolioWebsite && (
+                <ProfileLink
+                  imgurl="/assets/icons/link.svg"
+                  href={userInfo?.user?.portfolioWebsite}
+                  title="Portfolio"
+                />
+              )}
+              {userInfo?.user?.location && (
+                <ProfileLink
+                  imgurl="/assets/icons/location.svg"
+                  title={userInfo?.user?.location}
+                />
+              )}
+              <ProfileLink
+                imgurl="/assets/icons/calendar.svg"
+                title={getMonthYear(userInfo?.user?.joinedAt)}
+              />
             </div>
-            {userInfo?.user?.bio && <p>{userInfo?.user?.bio}</p>}
+            {userInfo?.user?.bio && (
+              <p className="paragraph-regular mt-8 text-dark400_light800">
+                {userInfo?.user?.bio}
+              </p>
+            )}
           </div>
         </div>
         <div className="flex justify-end max-sm:mb-5 max-sm:w-full sm:mt-3">
@@ -42,7 +69,21 @@ async function Page({ params, searchParams }: URLProps) {
           </SignedIn>
         </div>
       </div>
-      Stats
+      <Stats />
+      <div className="mt-10 flex gap-10">
+        <Tabs defaultValue="top-posts" className="flex-1">
+          <TabsList className="background-light800_dark400 min-h-[42px] p-1">
+            <TabsTrigger value="top-posts" className="tab">
+              Top Posts
+            </TabsTrigger>
+            <TabsTrigger value="answers" className="tab">
+              Answers
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="top-posts">POSTS</TabsContent>
+          <TabsContent value="answers">ANSWERS</TabsContent>
+        </Tabs>
+      </div>
     </>
   );
 }
