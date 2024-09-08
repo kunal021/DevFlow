@@ -194,3 +194,27 @@ export async function getUserQuestions(params: GetUserStatsParams) {
     console.log(error);
   }
 }
+
+export async function getUserAnswers(params: GetUserStatsParams) {
+  try {
+    await connectToDatabase();
+    const { userId, page = 1, pageSize = 20 } = params;
+
+    const totalAnswers = await Answer.countDocuments({ author: userId });
+    const userAnswers = await Answer.find({ author: userId })
+      .sort({
+        views: -1,
+        upvotes: -1,
+      })
+      .populate({ path: "question", model: Question, select: "_id title" })
+      .populate({
+        path: "author",
+        model: User,
+        select: "_id name clerkId picture",
+      });
+
+    return { totalAnswers, answers: userAnswers };
+  } catch (error) {
+    console.log(error);
+  }
+}
