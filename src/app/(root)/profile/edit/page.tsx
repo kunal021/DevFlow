@@ -1,5 +1,4 @@
-import Question from "@/components/shared/form/Question";
-import { getQuestionById } from "@/lib/actions/question.action";
+import Profile from "@/components/shared/form/Profile";
 import { getUserById } from "@/lib/actions/user.action";
 import { ParamsProps } from "@/types";
 import { auth } from "@clerk/nextjs/server";
@@ -11,16 +10,12 @@ async function Page({ params }: ParamsProps) {
   }
 
   const mongoUser = await getUserById({ userId });
-  const result = await getQuestionById({ questionId: params.id });
+
   return (
     <>
-      <h1 className="h1-bold text-dark100_light900">Edit Question</h1>
+      <h1 className="h1-bold text-dark100_light900">Edit Profile</h1>
       <div className="mt-9">
-        <Question
-          type="Edit"
-          mongoUserId={mongoUser?._id}
-          questionDetails={JSON.stringify(result)}
-        />
+        <Profile clerkId={userId} user={JSON.stringify(mongoUser)} />
       </div>
     </>
   );
