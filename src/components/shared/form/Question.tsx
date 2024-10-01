@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { Fragment, useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -207,7 +207,7 @@ function Question({ mongoUserId, type, questionDetails }: Props) {
                 Tags<span className="text-primary-500">*</span>
               </FormLabel>
               <FormControl className="mt-3.5">
-                <>
+                <Fragment>
                   <Input
                     disabled={type === "Edit"}
                     onKeyDown={(e) => handleInputKeyDown(e, field)}
@@ -242,7 +242,7 @@ function Question({ mongoUserId, type, questionDetails }: Props) {
                       ))}
                     </div>
                   )}
-                </>
+                </Fragment>
               </FormControl>
               <FormDescription className="body-regular mt-2.5 text-light-500">
                 Add up to 3 tags to describe what your question is about. You
@@ -258,9 +258,11 @@ function Question({ mongoUserId, type, questionDetails }: Props) {
           className="primary-gradient w-fit !text-light-900"
         >
           {isSubmitting ? (
-            <>{type === "Edit" ? "Editing..." : "Posting..."}</>
+            <Fragment>{type === "Edit" ? "Editing..." : "Posting..."}</Fragment>
           ) : (
-            <>{type === "Edit" ? "Edit Question" : "Submit Question"}</>
+            <Fragment>
+              {type === "Edit" ? "Edit Question" : "Submit Question"}
+            </Fragment>
           )}
         </Button>
       </form>
