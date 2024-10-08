@@ -3,10 +3,11 @@ import Filter from "@/components/shared/Filter";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { UserFilters } from "@/constants/filter";
 import { getAllUsers } from "@/lib/actions/user.action";
+import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
-async function page() {
-  const result = await getAllUsers({});
+async function page({ searchParams }: SearchParamsProps) {
+  const result = await getAllUsers({ searchQuery: searchParams?.q });
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">

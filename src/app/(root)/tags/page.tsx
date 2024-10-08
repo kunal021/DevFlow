@@ -4,10 +4,11 @@ import NoResult from "@/components/shared/NoResult";
 import LocalSearch from "@/components/shared/search/LocalSearch";
 import { UserFilters } from "@/constants/filter";
 import { getAllTags } from "@/lib/actions/tag.action";
+import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
-async function page() {
-  const result = await getAllTags({});
+async function page({ searchParams }: SearchParamsProps) {
+  const result = await getAllTags({ searchQuery: searchParams?.q });
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
