@@ -1,14 +1,16 @@
-import UserCard from "@/components/cards/UserCard";
 import Filter from "@/components/shared/Filter";
 import NoResult from "@/components/shared/NoResult";
 import LocalSearch from "@/components/shared/search/LocalSearch";
-import { UserFilters } from "@/constants/filter";
+import { TagFilters } from "@/constants/filter";
 import { getAllTags } from "@/lib/actions/tag.action";
 import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
 async function page({ searchParams }: SearchParamsProps) {
-  const result = await getAllTags({ searchQuery: searchParams?.q });
+  const result = await getAllTags({
+    searchQuery: searchParams?.q,
+    filter: searchParams?.filter,
+  });
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
@@ -28,7 +30,7 @@ async function page({ searchParams }: SearchParamsProps) {
           otherClasses="flex-1"
         />
         <Filter
-          filters={UserFilters}
+          filters={TagFilters}
           otherClass="min-h-[56px] sm:min-w-[176px]"
         />
       </div>

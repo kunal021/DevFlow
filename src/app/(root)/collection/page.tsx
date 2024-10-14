@@ -13,6 +13,7 @@ async function Collection({ searchParams }: SearchParamsProps) {
   const result = await getSavedQuestions({
     clerkId: userId,
     searchQuery: searchParams?.q,
+    filter: searchParams?.filter,
   });
 
   return (
@@ -30,7 +31,7 @@ async function Collection({ searchParams }: SearchParamsProps) {
         <Filter
           filters={QuestionFilters}
           otherClass="min-h-[56px] sm:min-w-[176px]"
-          containerClass="hidden max-md:flex"
+          // containerClass="hidden max-md:flex"
         />
       </div>
 

@@ -7,7 +7,10 @@ import { SearchParamsProps } from "@/types";
 import Link from "next/link";
 
 async function page({ searchParams }: SearchParamsProps) {
-  const result = await getAllUsers({ searchQuery: searchParams?.q });
+  const result = await getAllUsers({
+    searchQuery: searchParams?.q,
+    filter: searchParams?.filter,
+  });
   return (
     <>
       <div className="flex w-full flex-col-reverse justify-between gap-4 sm:flex-row sm:items-center">
