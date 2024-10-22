@@ -51,6 +51,7 @@ function LocalSearch({
 
     return () => clearTimeout(delayDebounceFn);
   }, [pathname, route, router, search, searchParams]);
+
   return (
     <div
       className={`background-light800_darkgradient flex min-h-[56px] grow items-center gap-4 rounded-[10px] px-4 ${otherClasses}`}
