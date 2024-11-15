@@ -34,7 +34,7 @@ async function page({ params }: { params: { id: string } }) {
               height={22}
               className="rounded-full"
             />
-            <p className="paragraph-semibold text-dark300_loght700">
+            <p className="paragraph-semibold text-dark300_light700">
               {result?.author?.name}
             </p>
           </Link>
